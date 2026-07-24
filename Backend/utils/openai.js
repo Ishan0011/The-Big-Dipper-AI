@@ -1,28 +1,20 @@
-import "dotenv/config";
+import { GoogleGenAI } from '@google/genai';
 
-const getOpenAIAPIResponse = async(message) => {
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [{
-                role: "user",
-                content: message
-            }]
-        })
-    };
+// Initialize the Google GenAI client (reads GEMINI_API_KEY from environment)
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
 
-    try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", options);
-        const data = await response.json();
-        return data.choices[0].message.content; //reply
-    } catch(err) {
-        console.log(err);
-    }
-}
+export const getAIResponse = async (userPrompt) => {
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash', // Fast and reliable free-tier model
+      contents: userPrompt,
+    });
 
-export default getOpenAIAPIResponse;
+    return response.text;
+  } catch (error) {
+    console.error('Error fetching Gemini response:', error);
+    throw error;
+  }
+};
