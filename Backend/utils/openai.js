@@ -13,7 +13,7 @@ const ai = new GoogleGenAI({ apiKey });
 export const getAIResponse = async (userPrompt) => {
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash', // <-- Updated model string here
+      model: 'gemini-2.0-flash', // <-- Standard production model name
       contents: userPrompt,
     });
 
