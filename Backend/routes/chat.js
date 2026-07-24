@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAIResponse } from '../utils/openai.js'; // Adjust path if renamed
+import { getAIResponse } from '../utils/openai.js'; 
 
 const router = express.Router();
 
