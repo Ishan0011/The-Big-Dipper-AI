@@ -13,7 +13,7 @@ const ai = new GoogleGenAI({ apiKey });
 export const getAIResponse = async (userPrompt) => {
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash-8b', // Alternative high-speed free tier model
+      model: 'gemini-2.5-flash', 
       contents: userPrompt,
     });
 
