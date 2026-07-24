@@ -1,7 +1,36 @@
 .chats {
-    max-width: 700px;
-    overflow-y: scroll;
-    padding: 8rem;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    /* Instead of max-width, use side padding to keep the box
+       full-width (so the scrollbar sits at the real screen edge)
+       while still visually centering the 700px-wide conversation */
+    padding: 2rem max(1rem, calc(50% - 350px));
+
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #4d4d4d transparent;
+}
+
+/* Chrome / Edge / Safari */
+.chats::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chats::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chats::-webkit-scrollbar-thumb {
+    background-color: #4d4d4d;
+    border-radius: 10px;
+}
+
+.chats::-webkit-scrollbar-thumb:hover {
+    background-color: #5f5f5f;
 }
 
 .userDiv {
