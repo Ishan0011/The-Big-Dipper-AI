@@ -1,9 +1,14 @@
 import { GoogleGenAI } from '@google/genai';
+import dotenv from 'dotenv';
+dotenv.config();
 
+const apiKey = process.env.GEMINI_API_KEY;
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
+if (!apiKey) {
+  console.error("CRITICAL: GEMINI_API_KEY is missing from environment variables!");
+}
+
+const ai = new GoogleGenAI({ apiKey });
 
 export const getAIResponse = async (userPrompt) => {
   try {
