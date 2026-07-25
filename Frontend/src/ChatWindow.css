@@ -23,6 +23,28 @@
     margin: 1rem 2rem;
 }
 
+.navbarLeft {
+    display: flex;
+    align-items: center;
+}
+
+.sidebarOpenBtn {
+    margin: 1rem 0.5rem 1rem 1.5rem !important;
+    height: 32px;
+    width: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sidebarOpenBtn:hover {
+    background-color: rgba(180, 180, 180, 0.1);
+    color: #fff;
+}
+
 .userIconDiv {
     margin: 1rem 2rem;
 }

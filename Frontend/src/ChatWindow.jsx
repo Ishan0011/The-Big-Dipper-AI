@@ -7,7 +7,7 @@ import { ScaleLoader } from "react-spinners";
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function ChatWindow() {
-    const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, token, user, logout } = useContext(MyContext);
+    const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, token, user, logout, isSidebarOpen, toggleSidebar } = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -63,7 +63,14 @@ function ChatWindow() {
     return (
         <div className="chatWindow">
             <div className="navbar">
-                <span>The Big Dipper AI<i className="fa-solid fa-chevron-down"></i></span>
+                <div className="navbarLeft">
+                    {!isSidebarOpen && (
+                        <span className="sidebarOpenBtn" title="Open sidebar" onClick={toggleSidebar}>
+                            <i className="fa-solid fa-angles-right"></i>
+                        </span>
+                    )}
+                    <span>The Big Dipper AI<i className="fa-solid fa-chevron-down"></i></span>
+                </div>
                 <div className="userIconDiv" onClick={handleProfileClick}>
                     <span className="userIcon"><i className="fa-solid fa-user"></i></span>
                 </div>
