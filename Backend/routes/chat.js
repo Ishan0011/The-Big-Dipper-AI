@@ -1,10 +1,11 @@
 import express from 'express';
 import { getAIResponse } from '../utils/openai.js';
 import Thread from '../models/Thread.js';
+import requireAuth from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.post('/chat', async (req, res) => {
+router.post('/chat', requireAuth, async (req, res) => {
   try {
     const { message, threadId } = req.body;
 
@@ -17,11 +18,11 @@ router.post('/chat', async (req, res) => {
 
     const aiMessage = await getAIResponse(message);
 
-    // Find existing thread or create a new one
-    let thread = await Thread.findOne({ threadId });
+    let thread = await Thread.findOne({ threadId, userId: req.userId });
     if (!thread) {
       thread = new Thread({
         threadId,
+        userId: req.userId,
         title: message.length > 30 ? message.slice(0, 30) + '...' : message,
         messages: []
       });
