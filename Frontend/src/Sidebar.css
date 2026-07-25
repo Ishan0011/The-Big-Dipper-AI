@@ -3,22 +3,49 @@
     color: #b4b4b4;
     height: 100vh;
     width: 320px;
+    min-width: 320px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width 0.25s ease, min-width 0.25s ease, padding 0.25s ease;
 }
 
+.sidebar.sidebarClosed {
+    width: 0;
+    min-width: 0;
+    border-right: none;
+}
 
-button {
+.sidebarTop {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: transparent;
-    border: solid 0.5px rgba(255, 255, 255, 0.5);
+    padding: 8px 10px;
+}
+
+.sidebarTopIcons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.sidebarTopIcons span {
+    font-size: 18px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 6px;
+}
+
+.sidebarTopIcons span:hover {
+    background-color: rgba(180, 180, 180, 0.1);
+    color: #fff;
 }
 
 .logo {
@@ -27,14 +54,7 @@ button {
     background-color: #fff;
     border-radius: 50%;
     object-fit: cover;
-}
-
-button span {
-    font-size: 20px;
-}
-
-button:hover {
-    background-color: rgba(180, 180, 180, 0.05);
+    flex-shrink: 0;
 }
 
 .history {

@@ -18,6 +18,17 @@ function App() {
     const stored = localStorage.getItem("user");
     return stored ? JSON.parse(stored) : null;
   });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    const stored = localStorage.getItem("sidebarOpen");
+    return stored === null ? true : stored === "true";
+  });
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(prev => {
+      localStorage.setItem("sidebarOpen", String(!prev));
+      return !prev;
+    });
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -39,6 +50,7 @@ function App() {
     allThreads, setAllThreads,
     token, setToken,
     user, setUser,
+    isSidebarOpen, toggleSidebar,
     logout
   };
 

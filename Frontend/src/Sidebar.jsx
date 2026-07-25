@@ -8,7 +8,7 @@ import logoImg from "./assets/blacklogo.png";
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function Sidebar() {
-    const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats, token } = useContext(MyContext);
+    const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats, token, isSidebarOpen, toggleSidebar } = useContext(MyContext);
 
     const getAllThreads = async () => {
         try {
@@ -75,11 +75,14 @@ function Sidebar() {
     };
 
     return (
-        <section className="sidebar">
-            <button onClick={createNewChat}>
+        <section className={`sidebar ${isSidebarOpen ? "" : "sidebarClosed"}`}>
+            <div className="sidebarTop">
                 <img src={logoImg} alt="gpt logo" className="logo" />
-                <span><i className="fa-solid fa-pen-to-square"></i></span>
-            </button>
+                <div className="sidebarTopIcons">
+                    <span title="New chat" onClick={createNewChat}><i className="fa-solid fa-pen-to-square"></i></span>
+                    <span title="Close sidebar" onClick={toggleSidebar}><i className="fa-solid fa-angles-left"></i></span>
+                </div>
+            </div>
 
             <ul className="history">
                 {
