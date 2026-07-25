@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import chatRoutes from "./routes/chat.js";
 import threadRoutes from "./routes/thread.js";
+import authRoutes from "./routes/auth.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -17,10 +18,10 @@ app.get("/", (req, res) => {
 
 app.use("/api", chatRoutes);
 app.use("/api", threadRoutes);
+app.use("/api/auth", authRoutes);
 
 const connectDB = async () => {
   try {
-    
     await mongoose.connect(process.env.MONGODB_URI);
     console.log("Connected with Database!");
   } catch (err) {
