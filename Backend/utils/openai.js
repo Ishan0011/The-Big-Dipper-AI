@@ -1,20 +1,21 @@
-import { GoogleGenAI } from '@google/genai';
+import Groq from "groq-sdk";
 
-
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export const getAIResponse = async (userPrompt) => {
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash', 
-      contents: userPrompt,
+    const response = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        { role: "user", content: userPrompt },
+      ],
     });
 
-    return response.text;
+    return response.choices[0]?.message?.content ?? "";
   } catch (error) {
-    console.error('Error fetching Gemini response:', error);
+    console.error("Error fetching Groq response:", error);
     throw error;
   }
 };
