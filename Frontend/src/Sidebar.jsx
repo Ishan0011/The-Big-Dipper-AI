@@ -8,13 +8,14 @@ import logoImg from "./assets/blacklogo.png";
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function Sidebar() {
-    const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats } = useContext(MyContext);
+    const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats, token } = useContext(MyContext);
 
     const getAllThreads = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/thread`);
+            const response = await fetch(`${API_BASE_URL}/api/thread`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
             const res = await response.json();
-            
             
             if (Array.isArray(res)) {
                 const filteredData = res.map(thread => ({ threadId: thread.threadId, title: thread.title }));
@@ -26,8 +27,8 @@ function Sidebar() {
     };
 
     useEffect(() => {
-        getAllThreads();
-    }, [currThreadId]);
+        if (token) getAllThreads();
+    }, [currThreadId, token]);
 
 
     const createNewChat = () => {
@@ -42,9 +43,10 @@ function Sidebar() {
         setCurrThreadId(newThreadId);
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/thread/${newThreadId}`);
+            const response = await fetch(`${API_BASE_URL}/api/thread/${newThreadId}`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
             const res = await response.json();
-            console.log(res);
             setPrevChats(res);
             setNewChat(false);
             setReply(null);
@@ -55,11 +57,12 @@ function Sidebar() {
 
     const deleteThread = async (threadId) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/thread/${threadId}`, { method: "DELETE" });
-            const res = await response.json();
-            console.log(res);
+            const response = await fetch(`${API_BASE_URL}/api/thread/${threadId}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            await response.json();
 
-            // Updated threads re-render
             setAllThreads(prev => prev.filter(thread => thread.threadId !== threadId));
 
             if(threadId === currThreadId) {
@@ -77,7 +80,6 @@ function Sidebar() {
                 <img src={logoImg} alt="gpt logo" className="logo" />
                 <span><i className="fa-solid fa-pen-to-square"></i></span>
             </button>
-
 
             <ul className="history">
                 {
@@ -99,7 +101,7 @@ function Sidebar() {
             </ul>
  
             <div className="sign">
-                <p>By Ishan </p>
+                <p>By Ishan ♥</p>
             </div>
         </section>
     );
