@@ -41,4 +41,21 @@ router.post('/chat', requireAuth, async (req, res) => {
   }
 });
 
+// Guest chat
+router.post('/chat/guest', async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+
+    const aiMessage = await getAIResponse(message);
+    res.json({ reply: aiMessage });
+  } catch (error) {
+    console.error('Error in /chat/guest route:', error);
+    res.status(500).json({ error: 'Failed to process AI response' });
+  }
+});
+
 export default router;
