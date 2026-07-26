@@ -5,7 +5,7 @@ import { MyContext } from "./MyContext.jsx";
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function Auth() {
-    const { setToken, setUser } = useContext(MyContext);
+    const { setToken, setUser, continueAsGuest } = useContext(MyContext);
     const [mode, setMode] = useState("login"); // "login" | "signup"
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -50,6 +50,11 @@ function Auth() {
 
     return (
         <div className="authWrapper">
+            <div className="authHero">
+                <h1 className="authHeading"><span className="highlight">Your Thinking Partner</span></h1>
+                <p className="authSubheading">The Big Dipper AI</p>
+            </div>
+
             <form className="authBox" onSubmit={handleSubmit}>
                 <h2>{mode === "login" ? "Log in" : "Create your account"}</h2>
 
@@ -92,6 +97,12 @@ function Auth() {
                         {mode === "login" ? "Sign up" : "Log in"}
                     </span>
                 </p>
+
+                <div className="authDivider"><span>or</span></div>
+
+                <button type="button" className="guestButton" onClick={continueAsGuest}>
+                    Continue without login
+                </button>
             </form>
         </div>
     );
