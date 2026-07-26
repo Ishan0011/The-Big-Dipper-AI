@@ -7,9 +7,10 @@ import { ScaleLoader } from "react-spinners";
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function ChatWindow() {
-    const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, token, user, logout, isSidebarOpen, toggleSidebar, isGuest } = useContext(MyContext);
+    const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, token, user, logout, isSidebarOpen, toggleSidebar, isGuest, theme, setTheme } = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const getReply = async () => {
         if (!prompt.trim()) return; 
@@ -85,10 +86,44 @@ function ChatWindow() {
                 <div className="dropDown">
                     {user && <div className="dropDownItem">{user.name} ({user.email})</div>}
                     {isGuest && <div className="dropDownItem">Guest (chats aren't saved)</div>}
-                    <div className="dropDownItem"><i className="fa-solid fa-gear"></i> Settings</div>
+                    <div className="dropDownItem" onClick={() => { setIsSettingsOpen(true); setIsOpen(false); }}>
+                        <i className="fa-solid fa-gear"></i> Settings
+                    </div>
                     <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
                     <div className="dropDownItem" onClick={logout}>
                         <i className="fa-solid fa-arrow-right-from-bracket"></i> {isGuest ? "Log in" : "Log out"}
+                    </div>
+                </div>
+            }
+            {
+                isSettingsOpen &&
+                <div className="settingsOverlay" onClick={() => setIsSettingsOpen(false)}>
+                    <div className="settingsModal" onClick={(e) => e.stopPropagation()}>
+                        <div className="settingsHeader">
+                            <h3>Settings</h3>
+                            <span className="settingsCloseBtn" onClick={() => setIsSettingsOpen(false)}>
+                                <i className="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+                        <div className="settingsRow">
+                            <span className="settingsRowLabel">Theme</span>
+                            <div className="themeToggle">
+                                <button
+                                    type="button"
+                                    className={`themeOption ${theme === "light" ? "active" : ""}`}
+                                    onClick={() => setTheme("light")}
+                                >
+                                    <i className="fa-solid fa-sun"></i> Light
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`themeOption ${theme === "dark" ? "active" : ""}`}
+                                    onClick={() => setTheme("dark")}
+                                >
+                                    <i className="fa-solid fa-moon"></i> Dark
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             }
