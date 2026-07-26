@@ -22,6 +22,7 @@ function App() {
     const stored = localStorage.getItem("sidebarOpen");
     return stored === null ? true : stored === "true";
   });
+  const [isGuest, setIsGuest] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => {
@@ -30,11 +31,22 @@ function App() {
     });
   };
 
+  const continueAsGuest = () => {
+    setIsGuest(true);
+    setPrompt("");
+    setReply(null);
+    setAllThreads([]);
+    setPrevChats([]);
+    setCurrThreadId(uuidv1());
+    setNewChat(true);
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setToken(null);
     setUser(null);
+    setIsGuest(false);
     setAllThreads([]);
     setPrevChats([]);
     setCurrThreadId(uuidv1());
@@ -51,13 +63,14 @@ function App() {
     token, setToken,
     user, setUser,
     isSidebarOpen, toggleSidebar,
+    isGuest, continueAsGuest,
     logout
   };
 
   return (
     <div className='app'>
       <MyContext.Provider value={providerValues}>
-        {token ? (
+        {(token || isGuest) ? (
           <>
             <Sidebar></Sidebar>
             <ChatWindow></ChatWindow>
