@@ -69,7 +69,7 @@ function ChatWindow() {
                             <i className="fa-solid fa-angles-right"></i>
                         </span>
                     )}
-                    <span>The Big Dipper AI<i className="fa-solid fa-chevron-down"></i></span>
+                    <span>The Big Dipper AI</span>
                 </div>
                 <div className="userIconDiv" onClick={handleProfileClick}>
                     <span className="userIcon"><i className="fa-solid fa-user"></i></span>
