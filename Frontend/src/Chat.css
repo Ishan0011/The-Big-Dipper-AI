@@ -5,14 +5,12 @@
     overflow-y: auto;
     box-sizing: border-box;
 
-    /* Instead of max-width, use side padding to keep the box
-       full-width (so the scrollbar sits at the real screen edge)
-       while still visually centering the 700px-wide conversation */
+    
     padding: 2rem max(1rem, calc(50% - 350px));
 
     /* Firefox */
     scrollbar-width: thin;
-    scrollbar-color: #4d4d4d transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
 /* Chrome / Edge / Safari */
@@ -25,12 +23,12 @@
 }
 
 .chats::-webkit-scrollbar-thumb {
-    background-color: #4d4d4d;
+    background-color: var(--scrollbar-thumb);
     border-radius: 10px;
 }
 
 .chats::-webkit-scrollbar-thumb:hover {
-    background-color: #5f5f5f;
+    background-color: var(--scrollbar-thumb-hover);
 }
 
 .userDiv {
@@ -46,7 +44,7 @@
 }
 
 .userMessage {
-    background-color: #323232;
+    background-color: var(--user-bubble);
     padding: 10px 20px;
     border-radius: 14px;
     margin-left: 15rem;
