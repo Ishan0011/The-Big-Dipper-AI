@@ -77,7 +77,7 @@ function Sidebar() {
     return (
         <section className={`sidebar ${isSidebarOpen ? "" : "sidebarClosed"}`}>
             <div className="sidebarTop">
-                <img src={logoImg} alt="gpt logo" className="logo" />
+                <img src={logoImg} alt="The Big Dipper AI logo" className="logo" />
                 <div className="sidebarTopIcons">
                     <span title="New chat" onClick={createNewChat}><i className="fa-solid fa-pen-to-square"></i></span>
                     <span title="Close sidebar" onClick={toggleSidebar}><i className="fa-solid fa-angles-left"></i></span>
