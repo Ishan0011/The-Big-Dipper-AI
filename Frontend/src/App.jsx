@@ -23,6 +23,14 @@ function App() {
     return stored === null ? true : stored === "true";
   });
   const [isGuest, setIsGuest] = useState(false);
+  const [theme, setThemeState] = useState(() => {
+    return localStorage.getItem("theme") || "dark";
+  });
+
+  const setTheme = (nextTheme) => {
+    localStorage.setItem("theme", nextTheme);
+    setThemeState(nextTheme);
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => {
@@ -64,11 +72,12 @@ function App() {
     user, setUser,
     isSidebarOpen, toggleSidebar,
     isGuest, continueAsGuest,
+    theme, setTheme,
     logout
   };
 
   return (
-    <div className='app'>
+    <div className='app' data-theme={theme}>
       <MyContext.Provider value={providerValues}>
         {(token || isGuest) ? (
           <>
