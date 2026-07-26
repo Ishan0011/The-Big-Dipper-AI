@@ -26,10 +26,27 @@
     padding: 8px 10px;
 }
 
+.sidebarBrand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.brandName {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ececec;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .sidebarTopIcons {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
+    flex-shrink: 0;
 }
 
 .sidebarTopIcons span {
