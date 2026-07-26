@@ -7,7 +7,7 @@ import { ScaleLoader } from "react-spinners";
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function ChatWindow() {
-    const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, token, user, logout, isSidebarOpen, toggleSidebar } = useContext(MyContext);
+    const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, token, user, logout, isSidebarOpen, toggleSidebar, isGuest } = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -17,20 +17,26 @@ function ChatWindow() {
         setLoading(true);
         setNewChat(false);
 
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                message: prompt,
-                threadId: currThreadId
-            })
-        };
+        const options = isGuest
+            ? {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: prompt })
+            }
+            : {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    message: prompt,
+                    threadId: currThreadId
+                })
+            };
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/chat`, options);
+            const response = await fetch(`${API_BASE_URL}/api/chat${isGuest ? "/guest" : ""}`, options);
             const res = await response.json();
             setReply(res.reply);
         } catch(err) {
@@ -78,9 +84,12 @@ function ChatWindow() {
                 isOpen && 
                 <div className="dropDown">
                     {user && <div className="dropDownItem">{user.name} ({user.email})</div>}
+                    {isGuest && <div className="dropDownItem">Guest (chats aren't saved)</div>}
                     <div className="dropDownItem"><i className="fa-solid fa-gear"></i> Settings</div>
                     <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
-                    <div className="dropDownItem" onClick={logout}><i className="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
+                    <div className="dropDownItem" onClick={logout}>
+                        <i className="fa-solid fa-arrow-right-from-bracket"></i> {isGuest ? "Log in" : "Log out"}
+                    </div>
                 </div>
             }
             <Chat></Chat>
