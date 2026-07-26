@@ -1,12 +1,36 @@
-# React + Vite
+# 🎨 The Big Dipper AI — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the client-side user interface for **The Big Dipper AI**, built with **React** and **Vite**. It provides a modern, responsive, ChatGPT-style chat interface with persistent user sessions, real-time messaging updates, and thread management.
 
-Currently, two official plugins are available:
+**Live Demo:** [the-big-dipper-ai.vercel.app](https://the-big-dipper-ai.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack & Dependencies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **Framework:** React 18+ (via Vite)
+* **Build Tool:** Vite
+* **Styling:** CSS3 / Custom Styles (Dark Theme)
+* **State Management:** React Context API (`MyContext.jsx`)
+* **Linting:** ESLint
+
+---
+
+## 📁 Folder & Component Structure
+
+```text
+Frontend/
+├── public/                 # Static assets & favicon
+├── src/
+│   ├── assets/             # Images, icons, and local visual assets
+│   ├── App.jsx             # Main application container & auth check
+│   ├── Auth.jsx            # Login & Signup toggle form
+│   ├── Chat.jsx            # Message renderer (user vs. AI bubble formatting)
+│   ├── ChatWindow.jsx      # Main conversation area & prompt input box
+│   ├── Sidebar.jsx         # Thread history navigation & "New Chat" button
+│   ├── MyContext.jsx       # Global state (user token, active thread, chat history)
+│   ├── main.jsx            # Application entry point
+│   └── index.css           # Global layout & styling definitions
+├── index.html              # HTML template
+├── vite.config.js          # Vite configuration
+└── package.json            # Scripts & dependencies
