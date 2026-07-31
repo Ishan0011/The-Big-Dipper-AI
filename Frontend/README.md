@@ -34,3 +34,5 @@ Frontend/
 ├── index.html              # HTML template
 ├── vite.config.js          # Vite configuration
 └── package.json            # Scripts & dependencies
+
+---
